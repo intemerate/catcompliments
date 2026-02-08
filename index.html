@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>compliment thing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Sour+Gummy:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+     <!-- ts is the whole cat thingy that follows the mouse 😋 -->
+     <!-- i love cats if u haven't noticed yet, i myself own a scottish fold -->
+    <div id="cat-follower">
+        <img id="cat-img" src="https://raw.githubusercontent.com/crgimenes/neko/master/assets/awake.png" alt="cat">
+    </div>
+    
+    <div class="container">
+        <h1>need a boost?</h1>
+        <p id="compliment">click below for something nice</p>
+        <button id="btn">click me :3</button>
+    </div>
+    <script>
+        // really i have no ideea how to make compliments, sorry yall ;)
+        var compliments = [
+            "ur actually cool",
+            "nice hair tday",
+            "srsly don't change", 
+            "ur doing better than u think",
+            "not annoying at all",
+            "good taste",
+            "people find you funny",
+            "looking sharp",
+            "trust ur gut",
+            "real one",
+            "u deserve real love",
+            "cats probably love y",
+        ];
+        
+        // we declare these variablees to the button and the text compliment we got there
+        // so we can track and do stuff with them
+        var btn = document.getElementById('btn');
+        var txt = document.getElementById('compliment');
+    
+        // stuff thet happens when u actually click the button itself
+        btn.onclick = function() {
+            // so math.random gives us a random number stuff like 0.01231233
+            var mumber = Math.random();
+            //console.log(mumber)
+            // we simply multiply to get a actual number and we use the length of how many complements we got in total
+            var index = Math.floor(mumber * compliments.length);
+            // and then we just update our content to the compliment we got
+            txt.textContent = compliments[index];
+        }
+        
+        // some vars for the cats
+        var cat = document.getElementById('cat-follower');
+        var img = document.getElementById('cat-img');
+        // xy pos of the cat image
+        var catx = window.innerWidth/2;
+        var caty = window.innerHeight/2;
+        
+        // xy of ur mouse
+        var mousex = window.innerWidth/2;
+        var mousey = window.innerHeight/2;
+        
+        // current sprite oc the cat state
+        var currentsprite = 'awake';
+        var frame = 1;
+        var counter = 0;
+        
+        // @crgimenes - github for the cat images and code ideea
+        var url = 'https://raw.githubusercontent.com/crgimenes/neko/master/assets/';
+        
+        // this is supposed to actually track your mouse movement
+        document.addEventListener('mousemove', function(e) {
+            mousex = e.clientX;
+            mousey = e.clientY;
+        });
+        
+        // this function runs every frame
+        function animframe() {
+            // small diffrence between the cat pos and ur mouse because i dont want it rlly close to it otherwise it will look bad
+            var diffx = mousex - catx;
+            var diffy = mousey - caty;
+            // u square both differences and add them then square root it, somehow
+            var xsq = diffx * diffx;
+            var ysq = diffy * diffy;
+            var distance = Math.sqrt(xsq + ysq);
+            // cant spell
+            
+            // didnt like it moving if u moved only so little
+            if(distance > 48){
+                // this figgures our the direction in where the cat should go
+                var angle = Math.atan2(diffy, diffx) * 180 / Math.PI;
+            
+                if(angle>-30 && angle<30){
+                    // going right
+                    currentsprite = 'right';
+                    catx += 1.5;
+                }
+                else if(angle>=30 && angle<80){
+                    // going down and right
+                    currentsprite = 'downright';
+                    catx += 1.2;
+                    caty += 1.2;
+                }
+                else if(angle>=80 && angle<100){
+                    // going down
+                    currentsprite = 'down';
+                    caty += 1.5;
+                }
+                else if(angle>=100 && angle<150){
+                    // going down and left
+                    currentsprite = 'downleft';
+                    catx -= 1.2;
+                    caty += 1.2;
+                }
+                else if(angle>=150 || angle<-150){
+                    // going left
+                    currentsprite = 'left';
+                    catx -= 1.5;
+                }
+                else if(angle>=-150 && angle<-100){
+                    // going up and left
+                    currentsprite = 'upleft';
+                    catx -= 1.2;
+                    caty -= 1.2;
+                }
+                else if(angle>=-100 && angle<-80){
+                    // going up
+                    currentsprite = 'up';
+                    caty -= 1.5;
+                }
+                else{
+                    // going up and right
+                    currentsprite = 'upright';
+                    catx += 1.2;
+                    caty -= 1.2;
+                }
+            }else{
+                // when cat is wake like rlly close we just sit
+                currentsprite = 'awake';
+            }
+            counter++;
+            
+            // switching between moving anims and stuff
+            if(counter > 12){
+                counter = 0;
+                if(frame==1){
+                    frame=2;
+                }else{
+                    frame=1;
+                }
+            }
+            
+            if(currentsprite=='awake'){
+                // awake doesnt rlly have any frames
+                img.src = url + 'awake.png';
+            }else{
+                // frame number to sprite
+                img.src = url + currentsprite + frame + '.png';
+            }
+            cat.style.left = (catx-16)+'px';
+            cat.style.top = (caty-16)+'px';
+            
+            // same functin next frame
+            requestAnimationFrame(animframe);
+        }
+        
+        // this is how we start the loop we js call the function
+        animframe();
+        
+        // background was too simple so i decided to do some cute cat stuff
+        function spawna() {
+            // positions where cats should go
+            var coords = [
+                {left: 5, top: 10},
+                {left: 85, top: 15},
+                {left: 10, top: 75},
+                {left: 80, top: 80},
+                {left: 50, top: 5} 
+            ];
+        
+            // loop through and create cat divs
+            for (var i = 0; i < 5; i = i + 1) {
+                console.log("index: " + i);
+                // create the div element
+                var catBox = document.createElement("div");
+                // class for the css
+                catBox.classList.add("bg-cat");
+                var x = coords[i].left;
+                var y = coords[i].top;
+
+                // positions for the style
+                catBox.style.left = x + "%";
+                catBox.style.top = y + "%";
+
+                var imgur = "https://cataas.com/cat?width=120&height=120&" + Math.random();
+                
+                catBox.style.backgroundImage = "url(" + imgur + ")";
+                document.body.appendChild(catBox);
+            }
+        }
+        
+        spawna();
+    </script>
+</body>
+</html>

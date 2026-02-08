@@ -1,0 +1,133 @@
+:root {
+    --font-family-jua: "Jua", cursive;
+    --font-family-text: "Sour Gummy", sans-serif;
+    --font-family-subtitle: "Sour Gummy Bold", sans-serif;
+    --font-family-sans: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --line-height-headers: 1.1;
+    --line-height-body: 1.5;
+    --font-size-xs: 0.75rem;
+    --font-size-s: 0.875rem;
+    --font-size-m: 1rem;
+    --font-size-l: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-xxl: 1.5rem;
+    --font-size-xxxl: 2rem;
+    --font-size-xxxxl: 2.5rem;
+    --color-text-header: hsl(348, 28%, 24%);
+    --color-text-body: hsl(7, 40%, 25%);
+    --color-text-muted: hsl(7, 14%, 37%);
+    --color-bg: hsl(35, 74%, 90%);
+    --color-bg-2: hsl(39, 52%, 80%);
+    --color-red-500: hsl(356, 49%, 43%);
+    --color-red-450: hsl(359, 66%, 69%);
+    --color-red-400: hsl(356, 47%, 52%);
+    --color-red-300: hsl(12, 88%, 80%);
+    --color-green-500: hsl(105, 44%, 35%);
+    --color-green-450: hsl(78, 52%, 57%);
+    --color-green-400: hsl(90, 43%, 46%);
+    --color-green-300: hsl(68, 50%, 71%);
+    --color-blue-600: hsl(218, 44%, 26%);
+    --color-blue-500: hsl(214, 39%, 39%);
+    --color-blue-400: hsl(204, 44%, 52%);
+    --color-blue-300: hsl(193, 52%, 64%);
+    --color-yellow-600: hsl(21, 52%, 35%);
+    --color-yellow-500: hsl(31, 63%, 46%);
+    --color-yellow-450: hsl(36, 70%, 56%);
+    --color-yellow-400: hsl(40, 72%, 67%);
+    --color-yellow-300: hsl(41, 72%, 67%);
+    --color-brown-700: hsl(348, 28%, 24%);
+    --color-brown-600: hsl(8, 30%, 36%);
+    --color-brown-500: hsl(7, 30%, 37%);
+    --color-brown-400: hsl(23, 34%, 51%);
+    --color-tan-400: hsl(30, 46%, 71%);
+    --color-tan-300: hsl(39, 52%, 80%);
+    --color-lime-400: hsl(70, 40%, 68%);
+    --color-pink-400: hsl(12, 66%, 81%);
+    --color-teal-400: hsl(178, 46%, 75%);
+    --color-brown-hover: hsla(7, 30%, 37%, 0.3);
+    --color-brown-hover-focus: hsla(7, 30%, 37%, 0.4);
+    --shadow: 0px 0px 2px 1px hsla(0, 0%, 0%, 0.25);
+    --shadow-inset: inset 0px 0px 2px 1px hsla(0, 0%, 0%, 0.25);
+    --border-radius: 0.8rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #2a2a2a;
+    font-family: var(--font-family-text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* css for the cat stuff that just make it feell good */
+.bg-cat {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    border-radius: 15px;
+    opacity: 0.6;
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 400px;
+}
+
+h1 {
+    font-family: var(--font-family-jua);
+    font-size: 2rem;
+    color: #b8b8b8;
+    margin-bottom: 1.5rem;
+}
+
+#compliment {
+    color: #9a9a9a;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    min-height: 2rem;
+}
+#btn {
+    background: #4a4a4a;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-family: var(--font-family-text);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* state when clicked */
+#btn:hover {
+    background: #5a5a5a;
+}
+
+/* way nicer */
+#btn:active {
+    background: #3a3a3a;
+}
+
+#cat-follower {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+#cat-follower img {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+}
