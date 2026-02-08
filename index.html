@@ -73,6 +73,15 @@
         // @crgimenes - github for the cat images and code ideea
         var url = 'https://raw.githubusercontent.com/crgimenes/neko/master/assets/';
         
+        // my initial implementation of this purly requested all images every time we needed it, preload should be better and should help to not make requests every move =)
+        var sprites = {};
+        var allsprites = ['awake', 'right1', 'right2', 'left1', 'left2', 'up1', 'up2', 'down1', 'down2', 'upright1', 'upright2', 'upleft1', 'upleft2', 'downright1', 'downright2', 'downleft1', 'downleft2'];
+        
+        for(var i = 0; i < allsprites.length; i++){
+            sprites[allsprites[i]] = new Image();
+            sprites[allsprites[i]].src = url + allsprites[i] + '.png';
+        }
+        
         // this is supposed to actually track your mouse movement
         document.addEventListener('mousemove', function(e) {
             mousex = e.clientX;
@@ -155,12 +164,10 @@
                 }
             }
             
-            if(currentsprite=='awake'){
-                // awake doesnt rlly have any frames
-                img.src = url + 'awake.png';
-            }else{
-                // frame number to sprite
-                img.src = url + currentsprite + frame + '.png';
+            // now we use the caches sprite instead of doing the reqs each time
+            var spritename = currentsprite == 'awake' ? 'awake' : currentsprite + frame;
+            if(sprites[spritename]){
+                img.src = sprites[spritename].src;
             }
             cat.style.left = (catx-16)+'px';
             cat.style.top = (caty-16)+'px';
