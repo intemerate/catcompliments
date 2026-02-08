@@ -179,6 +179,25 @@
         // this is how we start the loop we js call the function
         animframe();
         
+        // some facts for the cats
+        var catfacts = [
+            "scottish folds have folded ears becuz of a gene mutation",
+            "cats sleep 12-16 hours a day, living my dream tbh",
+            "a group of cats is called a clowder, did you know that?",
+            "they say cats can rotate their ears 180 degrees, built like andrew tate aint it? built diffrent",
+            "siamese cats are super vocal, they'll tell u everything",
+            "cats spend 70% of their lives sleeping, i would love that",
+            "when cats slow blink at u they're saying i love u",
+            "some countries believe a black cat crossing your path brings bad luck",
+            "black cats are considered lucky in most countries actually",
+            "cats can't taste sweetness, they're missing that part",
+            "a cat's meow is specifically to communicate with humans",
+            "a cat's brain is 90% similar to a human's",
+            "when a cat shows u their belly it means they trust u",
+            "cats have a better memory than dogs, they just pretend not to know",
+            "sphynx cats aren't actually hairless, they have fuzz!!!",
+        ];
+        
         // background was too simple so i decided to do some cute cat stuff
         function spawna() {
             // positions where cats should go
@@ -207,6 +226,32 @@
                 var imgur = "https://cataas.com/cat?width=120&height=120&" + Math.random();
                 
                 catBox.style.backgroundImage = "url(" + imgur + ")";
+                
+                // add tooltip with random cat fact
+                var tooltip = document.createElement("div");
+                tooltip.classList.add("cat-tooltip");
+                var randomfact = catfacts[Math.floor(Math.random() * catfacts.length)];
+                tooltip.textContent = randomfact;
+                catBox.appendChild(tooltip);
+                
+                // position tooltip on hover
+                catBox.addEventListener('mouseenter', function(e) {
+                    var rect = this.getBoundingClientRect();
+                    var tip = this.querySelector('.cat-tooltip');
+                    var tipLeft = rect.left + rect.width / 2;
+                    var tipTop = rect.top - 10;
+                    
+                    // some issue fixing while the message was way too close to the top causing it to not show fully
+                    if (tipTop < 60) {
+                        tip.style.top = rect.bottom + 10 + 'px';
+                        tip.style.transform = 'translate(-50%, 0)';
+                    } else {
+                        tip.style.top = tipTop + 'px';
+                        tip.style.transform = 'translate(-50%, -100%)';
+                    }
+                    tip.style.left = tipLeft + 'px';
+                });
+                
                 document.body.appendChild(catBox);
             }
         }
