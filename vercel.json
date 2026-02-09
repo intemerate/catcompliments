@@ -1,5 +1,5 @@
 {
   "env": {
-    "counterapi": "@counterapi"
+    "COUNTER_API_TOKEN": "ut_ZLA003oN2aCdYPx6ve6vP3EjOAp38evfxsC0OG98"
   }
 }

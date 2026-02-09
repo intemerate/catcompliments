@@ -1,6 +1,6 @@
 var Counter = require('counterapi').Counter;
 
-var counter = new Counter(process.env.counterapi);
+var counter = new Counter(process.env.COUNTER_API_TOKEN);
 
 module.exports = function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
