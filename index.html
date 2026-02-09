@@ -46,7 +46,7 @@
         var counterEl = document.getElementById('counter');
         
         // we do a custom api link using vercel for the backend counter ( counterapi )
-        const apiapi = 'http://localhost:6767/api/counter';
+        const apiapi = 'https://catcompliments.vercel.app/api/counter';
         
         fetch(apiapi)
             .then(res => res.json())
