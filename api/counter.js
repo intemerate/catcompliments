@@ -9,7 +9,7 @@ module.exports = function(req, res) {
   
   var path = req.method === 'POST' 
     ? '/v1/' + namespace + '/' + key + '/up'
-    : '/v1/' + namespace + '/' + key;
+    : '/v1/' + namespace + '/' + key + '/';
   
   var options = {
     hostname: 'api.counterapi.dev',
