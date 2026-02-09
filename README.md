@@ -19,7 +19,7 @@ just open `index.html` and thats mostly it
 
 ## live demo
 
-https://intemerate.github.io/catcompliments/
+https://catcompliments.vercel.app/
 
 
 Yes i know about the vercel.json env api token there, theres mostly nothing you can do with it other then spam? or use it for ur own stuff ;3
