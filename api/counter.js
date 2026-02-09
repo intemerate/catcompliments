@@ -5,13 +5,19 @@ module.exports = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   
   var token = process.env.COUNTER_API_TOKEN;
+  var workspace = 'compliments';
+  var key = 'total';
+  
+  var path = req.method === 'POST' 
+    ? '/v2/' + workspace + '/' + key + '/up'
+    : '/v2/' + workspace + '/' + key;
+  
   var options = {
     hostname: 'api.counterapi.dev',
-    path: '/v1/compliments/total',
-    method: req.method === 'POST' ? 'POST' : 'GET',
+    path: path,
+    method: 'GET',
     headers: {
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json'
+      'Authorization': 'Bearer ' + token
     }
   };
   
@@ -24,10 +30,10 @@ module.exports = function(req, res) {
       try {
         var result = JSON.parse(data);
         res.statusCode = 200;
-        res.end(JSON.stringify({ count: result.count || result.value || 0 }));
+        res.end(JSON.stringify({ count: result.count || result.value || result.data || 0 }));
       } catch (e) {
         res.statusCode = 500;
-        res.end(JSON.stringify({ error: 'Parse error' }));
+        res.end(JSON.stringify({ error: 'Parse error', raw: data }));
       }
     });
   });
@@ -36,10 +42,6 @@ module.exports = function(req, res) {
     res.statusCode = 500;
     res.end(JSON.stringify({ error: e.message }));
   });
-  
-  if (req.method === 'POST') {
-    apiReq.write(JSON.stringify({ action: 'increment' }));
-  }
   
   apiReq.end();
 };
