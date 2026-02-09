@@ -158,3 +158,61 @@ h1 {
     height: 100%;
     image-rendering: pixelated;
 }
+
+#counter {
+    color: #7a7a7a;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+.sparkle {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: #ffd700;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkleAnim 0.8s ease-out forwards;
+    box-shadow: 0 0 4px #ffd700;
+}
+
+@keyframes sparkleAnim {
+    to {
+        transform: translate(
+            calc(cos(var(--angle)) * 50px),
+            calc(sin(var(--angle)) * 50px)
+        );
+        opacity: 0;
+    }
+}
+
+/* this is the css for the phone */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        max-width: 90%;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    #compliment {
+        font-size: 1rem;
+    }
+    
+    #btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .bg-cat {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .cat-tooltip {
+        font-size: 0.75rem;
+        max-width: 140px;
+    }
+}

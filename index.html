@@ -20,6 +20,7 @@
         <h1>need a boost?</h1>
         <p id="compliment">click below for something nice</p>
         <button id="btn">click me :3</button>
+        <p id="counter">compliments given: 0</p>
     </div>
     <script>
         // really i have no ideea how to make compliments, sorry yall ;)
@@ -42,9 +43,36 @@
         // so we can track and do stuff with them
         var btn = document.getElementById('btn');
         var txt = document.getElementById('compliment');
+        var counterEl = document.getElementById('counter');
+        
+        // we do a custom api link using vercel for the backend counter ( counterapi )
+        const apiapi = 'http://localhost:6767/api/counter';
+        
+        fetch(apiapi)
+            .then(res => res.json())
+            .then(data => {
+                counterEl.textContent = 'compliments given: ' + data.count;
+            })
+            .catch(() => counterEl.textContent = 'compliments given: loading...');
+    
+        // sparkle effect when u click
+        function sparkle(x, y) {
+            // make 8 sparkles in a circle
+            for(var i = 0; i < 8; i++) {
+                var sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                // each sparkle goes in a different direction
+                sparkle.style.setProperty('--angle', (i * 45) + 'deg');
+                document.body.appendChild(sparkle);
+                // remove after animation
+                setTimeout(function(el) { el.remove(); }, 800, sparkle);
+            }
+        }
     
         // stuff thet happens when u actually click the button itself
-        btn.onclick = function() {
+        btn.onclick = function(e) {
             // so math.random gives us a random number stuff like 0.01231233
             var mumber = Math.random();
             //console.log(mumber)
@@ -52,6 +80,15 @@
             var index = Math.floor(mumber * compliments.length);
             // and then we just update our content to the compliment we got
             txt.textContent = compliments[index];
+            
+            fetch(apiapi, { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    counterEl.textContent = 'compliments given: ' + data.count;
+                });
+            
+            var rect = btn.getBoundingClientRect();
+            sparkle(rect.left + rect.width/2, rect.top + rect.height/2);
         }
         
         // some vars for the cats
@@ -86,6 +123,12 @@
         document.addEventListener('mousemove', function(e) {
             mousex = e.clientX;
             mousey = e.clientY;
+        });
+        
+        // with this event listener we can "support" phones better atleast we will move the kittie where the user taps his phone at
+        document.addEventListener('touchmove', function(e) {
+            mousex = e.touches[0].clientX;
+            mousey = e.touches[0].clientY;
         });
         
         // this function runs every frame
@@ -195,8 +238,9 @@
             "a cat's brain is 90% similar to a human's",
             "when a cat shows u their belly it means they trust u",
             "cats have a better memory than dogs, they just pretend not to know",
-            "sphynx cats aren't actually hairless, they have fuzz!!!",
+            "sphynx cats aren't actually hairless, they have fuzz!!!"
         ];
+
         
         // background was too simple so i decided to do some cute cat stuff
         function spawna() {

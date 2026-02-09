@@ -1,0 +1,11 @@
+{
+  "name": "catcompliments-api",
+  "version": "1.0.0",
+  "dependencies": {
+    "counterapi": "^1.0.0",
+    "dotenv": "^16.0.0"
+  },
+  "scripts": {
+    "dev": "node server.js"
+  }
+}
