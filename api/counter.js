@@ -4,21 +4,17 @@ module.exports = function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   
-  var token = process.env.COUNTER_API_TOKEN;
-  var workspace = 'compliments';
+  var namespace = 'catcompliments';
   var key = 'total';
   
   var path = req.method === 'POST' 
-    ? '/v2/' + workspace + '/' + key + '/up'
-    : '/v2/' + workspace + '/' + key;
+    ? '/v1/' + namespace + '/' + key + '/up'
+    : '/v1/' + namespace + '/' + key;
   
   var options = {
     hostname: 'api.counterapi.dev',
     path: path,
-    method: 'GET',
-    headers: {
-      'Authorization': 'Bearer ' + token
-    }
+    method: 'GET'
   };
   
   var apiReq = https.request(options, function(apiRes) {
@@ -30,7 +26,7 @@ module.exports = function(req, res) {
       try {
         var result = JSON.parse(data);
         res.statusCode = 200;
-        res.end(JSON.stringify({ count: result.count || result.value || result.data || 0 }));
+        res.end(JSON.stringify({ count: result.count || 0 }));
       } catch (e) {
         res.statusCode = 500;
         res.end(JSON.stringify({ error: 'Parse error', raw: data }));
